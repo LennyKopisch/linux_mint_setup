@@ -293,5 +293,51 @@ sudo nano /etc/vsftpd.conf
 anonymous_enable=NO
 local_enable=YES
 write_enable=YES
-local_root=/mnt/FTP
-chroot_local_user=YES
+> [!TIP]
+> Wichtig:
+> local_root=/mnt/FTP
+> chroot_local_user=YES
+
+Services starten und autostarten
+```bash
+sudo systemctl restart vsftpd
+```
+
+Firwall Port für FTP freimachen via TCP
+```bash
+sudo ufw allow 21/TCP
+```
+
+[...]
+
+<h3> 1.6 AD Join </h3>
+
+Pakete Installiert
+```bash
+sudo apt update
+sudo apt install realmd sssd adcli krb5-user samba-common-bin packagekit
+```
+
+DNS Server angepasst
+```bash
+Active Directory mit realmd erkennen
+realm discover lko-data.intern
+```
+
+Domäne joinen
+```bash
+sudo realm join --user=Administrator lko-data.intern
+```
+
+Konfiguration von pam.d
+```bash
+nano /etc/pam.d/common-session
+session required pam_mkhomedir.so skel=/etc/skel/ umask=077
+```
+
+Reboot
+
+Anmeldung / Testen
+```bash
+Administrator@lko-data.intern
+```
