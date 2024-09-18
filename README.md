@@ -98,7 +98,7 @@ systemctl daemon-reload
 ```bash
 sudo mount -a
 ```
-<h3> 1.3 Remotezugriff </h3>
+<h3> 1.4 Remotezugriff </h3>
 RDP Protokoll installieren 
 
 ```bash
@@ -227,3 +227,46 @@ vncserver -localhost no :1
 > VNC Verbindung Erfolgreich <br>
 ![✔️](https://img.shields.io/badge/-Fehler%20gefixt-brightgreen)
 __________________________________________________________________________________________________
+
+SSH Zugriff
+
+SSH installieren
+```bash
+sudo apt update
+sudo apt install openssh-server
+```
+Config prüfen ob x11 forwarding gesetzt ist (Falls nicht Änderungen machen und Service neu starten)
+```bash
+sudo nano /etc/ssh/sshd_config
+```
+In meinem Fall war DisplayOffset auskommtiert, also habe ich das '#' entfernt
+```bash
+X11Forwarding yes
+X11DisplayOffset 10
+```
+Service neu starten wie oben angesprochen
+```bash
+sudo systemctl restart ssh
+```
+X11 Packages installieren
+```bash
+sudo apt install xauth x11-apps
+```
+X11 Port freigeben:
+```bash
+sudo ufw allow 6000
+```
+
+PUTTY Installieren
+PUTTY Einstellungen für X11 
+> PuTTY öfnnen 
+> Connection > SSH > X11
+> Enable X11 forwarding“
+
+VcXsrv Installieren
+Starten
+
+Fertig
+> X display location -> localhost:0.0
+
+<h3> 1.3 Mountpoint </h3>
