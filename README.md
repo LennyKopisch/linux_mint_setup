@@ -98,5 +98,76 @@ systemctl daemon-reload
 ```bash
 sudo mount -a
 ```
+<h3> 1.3 Remotezugriff </h3>
+RDP Protokoll installieren 
 
+```bash
+sudo apt install xrdp
+```
+Daemon beim Boot starten, Daemon starten & prüfen
+```bash
+sudo systemctl enable xrdp
+sudo systemctl start xrdp
+sudo systemctl status xrdp
+```
+__________________________________________________________________________________________________
 
+> [!NOTE]  
+> OPTIONAL:
+ 
+Für Mint optional XFce Desktop für Kompatibilität installieren: 
+```bash
+sudo apt install xfce4
+```
+Festlegen das XFce bei rdp genutzt wird, (~/.xsession befindet sich meist im Homeverzeichnis)
+```bash
+echo xfce4-session >~/.xsession
+```
+__________________________________________________________________________________________________
+
+Lokale Firewall RDP Port freigeben
+```bash
+sudo ufw allow 3389
+```
+__________________________________________________________________________________________________
+
+> [!CAUTION]  
+> Fehlerbehebung:
+> RDP Client schließt nach login
+ 
+Config aufmachen
+```bash
+sudo nano /etc/xrdp/startwm.sh
+```
+Desktopumgebung hinzufügen
+```bash
+startxfce4
+```
+Speichern und Daemon neu starten
+```bash
+sudo systemctl restart xrdp
+```
+> [!TIP]
+> RDP Verbindung Erfolgreich <br>
+![✔️](https://img.shields.io/badge/-Fehler%20gefixt-brightgreen)
+__________________________________________________________________________________________________
+
+Team Viewer installieren
+
+Über Bash:
+```bash
+wget https://download.teamviewer.com/download/linux/teamviewer_amd64.deb
+```
+Installieren
+```bash
+sudo dpkg -i teamviewer_amd64.deb
+```
+> [!NOTE]  
+> Falls beschädigt
+```bash
+sudo apt --fix-broken install
+```
+Teamviewer starten
+```bash
+teamviewer
+```
