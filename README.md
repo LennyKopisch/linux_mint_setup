@@ -294,8 +294,8 @@ anonymous_enable=NO
 local_enable=YES
 write_enable=YES
 > [!TIP]
-> Wichtig:
-> local_root=/mnt/FTP
+> Wichtig damit der richtige Pfad für FTP genutzt wird: <br>
+> local_root=/mnt/FTP <br>
 > chroot_local_user=YES
 
 Services starten und autostarten
