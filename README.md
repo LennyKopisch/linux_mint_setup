@@ -164,10 +164,66 @@ sudo dpkg -i teamviewer_amd64.deb
 ```
 > [!NOTE]  
 > Falls beschädigt
-```bash
-sudo apt --fix-broken install
-```
+> ```bash
+> sudo apt --fix-broken install
+> ```
 Teamviewer starten
 ```bash
 teamviewer
 ```
+
+VNC Server installieren
+
+System updaten
+```bash
+sudo apt update
+sudo apt upgrade
+```
+VNC-Server installieren
+```bash
+sudo apt install tigervnc-standalone-server tigervnc-common
+```
+Passwort setzen
+```bash
+vncpasswd passwort
+```
+Server starten
+```bash
+vncserver
+```
+__________________________________________________________________________________________________
+
+> [!CAUTION]  
+> Fehlerbehebung: <br>
+> Server lehnt die Verbindun ab / Crasht beim Starten durch fehlerhafte Dateien etc.
+
+Startconfig erstellen, bearbeiten und Ausführungsrechte geben:
+```bash
+touch ~/.vnc/xstartup
+```
+```bash
+nano ~/.vnc/xstartup
+```
+> /usr/bin/cinnamon-session NUR FÜR MINT:
+```bash
+#!/bin/sh
+unset SESSION_MANAGER
+unset DBUS_SESSION_BUS_ADDRESS  
+/usr/bin/cinnamon-session
+```
+```bash
+chmod +x ~/.vnc/xstartup
+```
+
+Firewall Port für VNC freigeben:
+```bash
+sudo ufw allow 5901 
+```
+Server starten ( -localhost no = Erlaube Verbindungen || :1 = Display Nummer zum Port 5901)
+```bash
+vncserver -localhost no :1
+```
+> [!TIP]
+> VNC Verbindung Erfolgreich <br>
+![✔️](https://img.shields.io/badge/-Fehler%20gefixt-brightgreen)
+__________________________________________________________________________________________________
