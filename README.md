@@ -6,7 +6,7 @@
 ```bash
 sudo apt-get update && sudo apt-get upgrade
 ```
-
+__________________________________________________________________________________________________
 <h3> 1.2 Benutzer </h3>
 
 <b>Benutzer Anlegen (Benutzer01 & Benutzer02)</b>
@@ -39,7 +39,7 @@ Shell wieder freigeben
 ```bash
 sudo usermod -s /bin/bash benutzername
 ```
-
+__________________________________________________________________________________________________
 <h3> 1.3 Mountpoint </h3>
 [...]
 Festplatte 50GB Eingebunden über Proxmox
@@ -98,6 +98,7 @@ systemctl daemon-reload
 ```bash
 sudo mount -a
 ```
+__________________________________________________________________________________________________
 <h3> 1.4 Remotezugriff </h3>
 RDP Protokoll installieren 
 
@@ -268,7 +269,7 @@ Starten
 
 Fertig
 > X display location -> localhost:0.0
-
+__________________________________________________________________________________________________
 <h3> 1.5 FTP Server </h3>
 
 vsftpd installieren
@@ -309,7 +310,7 @@ sudo ufw allow 21/TCP
 ```
 
 [...]
-
+__________________________________________________________________________________________________
 <h3> 1.6 AD Join </h3>
 
 Pakete Installiert
