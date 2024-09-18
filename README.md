@@ -318,9 +318,10 @@ sudo apt update
 sudo apt install realmd sssd adcli krb5-user samba-common-bin packagekit
 ```
 
-DNS Server angepasst
-```bash
+> DNS Server angepasst 
+
 Active Directory mit realmd erkennen
+```bash
 realm discover lko-data.intern
 ```
 
@@ -335,7 +336,7 @@ nano /etc/pam.d/common-session
 session required pam_mkhomedir.so skel=/etc/skel/ umask=077
 ```
 
-Reboot
+> Reboot
 
 Anmeldung / Testen
 ```bash
