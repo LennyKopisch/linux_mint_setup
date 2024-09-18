@@ -111,47 +111,44 @@ sudo systemctl enable xrdp
 sudo systemctl start xrdp
 sudo systemctl status xrdp
 ```
-__________________________________________________________________________________________________
 
 > [!NOTE]  
 > OPTIONAL:
- 
-Für Mint optional XFce Desktop für Kompatibilität installieren: 
-```bash
-sudo apt install xfce4
-```
-Festlegen das XFce bei rdp genutzt wird, (~/.xsession befindet sich meist im Homeverzeichnis)
-```bash
-echo xfce4-session >~/.xsession
-```
-__________________________________________________________________________________________________
+> 
+> Für Mint optional XFce Desktop für Kompatibilität installieren: 
+> ```bash
+> sudo apt install xfce4
+> ```
+> Festlegen das XFce bei rdp genutzt wird, (~/.xsession befindet sich meist im Homeverzeichnis)
+> ```bash
+> echo xfce4-session >~/.xsession
+> ```
 
 Lokale Firewall RDP Port freigeben
 ```bash
 sudo ufw allow 3389
 ```
-__________________________________________________________________________________________________
-
 > [!CAUTION]  
 > Fehlerbehebung:
 > RDP Client schließt nach login
- 
-Config aufmachen
-```bash
-sudo nano /etc/xrdp/startwm.sh
-```
-Desktopumgebung hinzufügen
-```bash
-startxfce4
-```
-Speichern und Daemon neu starten
-```bash
-sudo systemctl restart xrdp
-```
+> 
+> Config aufmachen
+> ```bash
+> sudo nano /etc/xrdp/startwm.sh
+> ```
+> Desktopumgebung hinzufügen
+> ```bash
+> startxfce4
+> ```
+> Speichern und Daemon neu starten
+> ```bash
+< sudo systemctl restart xrdp
+> ```
+
 > [!TIP]
 > RDP Verbindung Erfolgreich <br>
 ![✔️](https://img.shields.io/badge/-Fehler%20gefixt-brightgreen)
-__________________________________________________________________________________________________
+
 
 Team Viewer installieren
 
@@ -192,42 +189,41 @@ Server starten
 ```bash
 vncserver
 ```
-__________________________________________________________________________________________________
-
 > [!CAUTION]  
 > Fehlerbehebung: <br>
 > Server lehnt die Verbindun ab / Crasht beim Starten durch fehlerhafte Dateien etc.
-
-Startconfig erstellen, bearbeiten und Ausführungsrechte geben:
-```bash
-touch ~/.vnc/xstartup
-```
-```bash
-nano ~/.vnc/xstartup
-```
+> 
+> Startconfig erstellen, bearbeiten und Ausführungsrechte geben:
+> ```bash
+> touch ~/.vnc/xstartup
+> ```
+> ```bash
+> nano ~/.vnc/xstartup
+> ```
 > /usr/bin/cinnamon-session NUR FÜR MINT:
-```bash
-#!/bin/sh
-unset SESSION_MANAGER
-unset DBUS_SESSION_BUS_ADDRESS  
-/usr/bin/cinnamon-session
-```
-```bash
-chmod +x ~/.vnc/xstartup
-```
+> ```bash
+> #!/bin/sh
+> unset SESSION_MANAGER
+> unset DBUS_SESSION_BUS_ADDRESS  
+> /usr/bin/cinnamon-session
+> ```
+> ```bash
+> chmod +x ~/.vnc/xstartup
+> ```
+> 
+> Firewall Port für VNC freigeben:
+> ```bash
+> sudo ufw allow 5901 
+> ```
+> Server starten ( -localhost no = Erlaube Verbindungen || :1 = Display Nummer zum Port 5901)
+> ```bash
+> vncserver -localhost no :1
+> ```
 
-Firewall Port für VNC freigeben:
-```bash
-sudo ufw allow 5901 
-```
-Server starten ( -localhost no = Erlaube Verbindungen || :1 = Display Nummer zum Port 5901)
-```bash
-vncserver -localhost no :1
-```
 > [!TIP]
 > VNC Verbindung Erfolgreich <br>
 ![✔️](https://img.shields.io/badge/-Fehler%20gefixt-brightgreen)
-__________________________________________________________________________________________________
+
 
 SSH Zugriff
 
