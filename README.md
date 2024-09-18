@@ -269,4 +269,29 @@ Starten
 Fertig
 > X display location -> localhost:0.0
 
-<h3> 1.3 Mountpoint </h3>
+<h3> 1.5 FTP Server </h3>
+
+vsftpd installieren
+```bash
+sudo apt update
+sudo apt install vsftpd
+```
+
+Verzeichnis erstellen und config machen
+```bash
+sudo mkdir -p /mnt/FTP
+```
+```bash
+sudo chown ftp:ftp /mnt/FTP
+sudo chmod 755 /mnt/FTP
+```
+
+vsftpd config
+```bash
+sudo nano /etc/vsftpd.conf
+```
+anonymous_enable=NO
+local_enable=YES
+write_enable=YES
+local_root=/mnt/FTP
+chroot_local_user=YES
