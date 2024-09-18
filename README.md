@@ -142,7 +142,7 @@ sudo ufw allow 3389
 > ```
 > Speichern und Daemon neu starten
 > ```bash
-< sudo systemctl restart xrdp
+> sudo systemctl restart xrdp
 > ```
 
 > [!TIP]
