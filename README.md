@@ -339,3 +339,152 @@ Anmeldung / Testen
 ```bash
 Administrator@lko-data.intern
 ```
+__________________________________________________________________________________________________
+
+<h3> 1.7 Weiteres </h3>
+
+Automatische Mail beim herunterfahren:
+SMTP & mit Internet auswählen + Lokal
+```bash
+sudo apt install mailutils
+```
+
+Skript erstellen was die Mail schickt:
+```bash
+sudo nano /usr/local/bin/send-reboot-email.sh
+```
+```bash
+#!/bin/bash
+
+echo "Der Server wurde neu gestartet!" | mail -s "Server-Neustart" mail@ab-data.de
+```
+Rechte geben
+```bash
+sudo chmod +x /usr/local/bin/send-reboot-email.sh
+```
+Systemmd Dienst erstellen
+```bash
+sudo nano /etc/systemd/system/send-reboot-email.service
+```
+```bash
+[Unit]
+Description=Send reboot notification email
+After=network.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/bin/send-reboot-email.sh
+
+[Install]
+WantedBy=multi-user.target
+```
+Dienst aktivieren & Testen:
+```bash
+sudo systemctl enable send-reboot-email.service
+```
+```bash
+sudo systemctl start send-reboot-email.service
+```
+
+Shutdown File
+
+Skript erstellen
+```bash
+sudo nano /usr/local/bin/check-shutdown-file.sh
+```bash
+```
+Inhalt
+```bash
+#!/bin/bash
+
+FILE="/mnt/austausch/shutdown.txt"
+
+if [ -f "$FILE" ]; then
+    echo "Datei $FILE existiert. Server wird neu gestartet."
+    rm -f "$FILE"
+    sudo reboot
+else
+    echo "Datei $FILE existiert nicht. Kein Neustart erforderlich."
+fi
+```
+Rechte verteilen
+```bash
+sudo chmod +x /usr/local/bin/check-shutdown-file.sh
+```
+Systemd-Timer erstellen
+```bash
+sudo nano /etc/systemd/system/check-shutdown-file.service
+```
+Inhalt
+```bash
+[Unit]
+Description=Check shutdown.txt
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/bin/check-shutdown-file.sh
+```
+Timer erstellen
+```bash
+sudo nano /etc/systemd/system/check-shutdown-file.timer
+```
+Inhalt
+```bash
+[Unit]
+Description=check-shutdown-file alle 5minutos
+
+[Timer]
+OnBootSec=1min
+OnUnitActiveSec=5min
+Unit=check-shutdown-file.service
+
+[Install]
+WantedBy=multi-user.target
+```
+Timer aktivieren
+```bash
+sudo systemctl enable check-shutdown-file.timer
+sudo systemctl start check-shutdown-file.timer
+```
+Testen
+```bash
+sudo systemctl start check-shutdown-file.service
+```
+
+gedit Öffnen wenn editor in bash geschrieben wird:
+
+gedit installieren weil nicht standartmäßig auf mint installiert
+```bash
+sudo apt install gedit
+```
+
+Shell Config anpassen
+```bash
+nano ~/.bashrc
+```
+Einfügen:
+```bash
+alias editor='gedit'
+```
+Änderungen laden
+```bash
+source ~/.bashrc
+```
+__________________________________________________________________________________________________
+
+<h3> 1.8 Fragen </h3>
+
+# Was ist Swap?
+> Swap ist ein Speicherbereich auf der Festplatte, der verwendet wird, wenn der physische RAM voll ist. Es gibt zwei Haupttypen: Swap-Partitionen und Swap-Dateien. Swap ermöglicht es dem System, mehr Daten zu verarbeiten, als im RAM vorhanden ist, aber ist langsamer als RAM.
+
+# Was ist der Unterschied zwischen KDE, Gnome und Xfce?
+> KDE (K Desktop Environment) bietet eine reichhaltige, anpassbare Benutzeroberfläche mit vielen Funktionen und Effekten. GNOME ist bekannt für sein einfaches, modernes Design und eine benutzerfreundliche, konsistente Oberfläche. Xfce ist leichtgewichtig und schnell, ideal für ältere Hardware oder Systeme mit begrenzten Ressourcen, und legt Wert auf Einfachheit und Stabilität.
+
+# Mountpoint
+> Siehe oben
+
+# Unterschiede zwischen den Paketmanagern apt-get, rpm, yum und zypper?
+> apt-get ist der Paketmanager für Debian-basierte Distributionen wie Ubuntu und verwendet .deb-Pakete. rpm ist der Paketmanager für Red Hat-basierte Distributionen und verwendet .rpm-Pakete. yum (Yellowdog Updater, Modified) verwaltet RPM-Pakete für Red Hat-basierte Distributionen wie CentOS und Fedora, bietet Abhängigkeitsauflösung und Repository-Verwaltung. zypper ist der Paketmanager für openSUSE und verwendet ebenfalls .rpm-Pakete, bietet aber zusätzliche Funktionen wie Abhängigkeitsmanagement und Repositories.
+__________________________________________________________________________________________________
+
+Lenny Kopisch, 18.09.2024
