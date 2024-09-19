@@ -391,7 +391,6 @@ Shutdown File
 Skript erstellen
 ```bash
 sudo nano /usr/local/bin/check-shutdown-file.sh
-```bash
 ```
 Inhalt
 ```bash
