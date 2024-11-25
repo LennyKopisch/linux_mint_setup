@@ -471,7 +471,7 @@ source ~/.bashrc
 ```
 __________________________________________________________________________________________________
 
-<h3> 1.8 Fragen </h3>
+<h3> 1.8 Fragen </h3> 
 
 # Was ist Swap?
 > Swap ist ein Speicherbereich auf der Festplatte, der verwendet wird, wenn der physische RAM voll ist. Es gibt zwei Haupttypen: Swap-Partitionen und Swap-Dateien. Swap ermöglicht es dem System, mehr Daten zu verarbeiten, als im RAM vorhanden ist, aber ist langsamer als RAM.
